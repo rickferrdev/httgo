@@ -27,13 +27,14 @@ func Parse() *Args {
 	var positional Positional
 	var optional Optional
 
-	flag.StringVar(&positional.MethodHttp, "method", "get", "...")
-	flag.StringVar(&positional.Url, "url", "", "...")
 	flag.IntVar(&optional.Goroutines, "goroutines", 5, "...")
 	flag.BoolVar(&optional.Help, "help", false, "...")
 	flag.BoolVar(&optional.Version, "version", false, "...")
 
 	flag.Parse()
+
+	positional.MethodHttp = strings.ToUpper(flag.Arg(0))
+	positional.Url = flag.Arg(1)
 
 	switch {
 	case optional.Help:
@@ -49,8 +50,6 @@ func Parse() *Args {
 		log.Println("invalid method http")
 		os.Exit(1)
 	}
-
-	flag.Set("method", strings.ToUpper(positional.MethodHttp))
 
 	return &Args{
 		Positional: positional,
