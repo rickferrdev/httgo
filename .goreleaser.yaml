@@ -16,7 +16,7 @@ before:
     - go generate ./...
 
 builds:
-  - main: ".\\cmd\\httgo"
+  - main: "./cmd/httgo"
     goos:
       - linux
       - windows
